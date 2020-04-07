@@ -270,9 +270,11 @@ var renderElem = function renderElem(elem, optionsCopy) {
 
     if (childNode.nodeType === 3) {
       // Text node
-      var frag = auto_render_renderMathInText(childNode.textContent, optionsCopy);
-      i += frag.childNodes.length - 1;
-      elem.replaceChild(frag, childNode);
+      if (childNode.textContent.includes("\$")) {
+        var frag = auto_render_renderMathInText(childNode.textContent, optionsCopy);
+        i += frag.childNodes.length - 1;
+        elem.replaceChild(frag, childNode);
+      }
     } else if (childNode.nodeType === 1) {
       (function () {
         // Element node
